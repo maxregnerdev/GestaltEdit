@@ -1,4 +1,4 @@
-name: Build & Sign IPA
+name: Build & Sign IPA (Free Apple ID)
 
 on:
   push:
@@ -14,17 +14,16 @@ jobs:
       - name: Check out source
         uses: actions/checkout@v7
 
-      - name: Build signed archive
-        env:
-          DEVELOPMENT_TEAM: ${{ secrets.APPLE_TEAM_ID }}
+      - name: Build and sign IPA
         run: |
           xcodebuild archive \
             -project GestaltEdit.xcodeproj \
             -scheme GestaltEdit \
             -configuration Release \
             -archivePath "$RUNNER_TEMP/GestaltEdit.xcarchive" \
-            CODE_SIGN_STYLE=Automatic \
-            DEVELOPMENT_TEAM="$DEVELOPMENT_TEAM"
+            CODE_SIGN_STYLE=Manual \
+            CODE_SIGN_IDENTITY="Apple Development" \
+            DEVELOPMENT_TEAM=${{ secrets.APPLE_TEAM_ID }}
 
       - name: Export signed IPA
         run: |
@@ -34,7 +33,7 @@ jobs:
             -exportOptionsPlist ExportOptions.plist \
             -allowProvisioningUpdates
 
-      - name: Upload signed IPA
+      - name: Upload IPA
         uses: actions/upload-artifact@v4
         with:
           name: GestaltEdit-signed
