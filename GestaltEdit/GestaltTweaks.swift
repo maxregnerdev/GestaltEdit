@@ -94,7 +94,17 @@ enum GestaltTweakCatalog {
             "MaxregnerUIEnabled": 1,
             "2039UI": 1,
             "MaxregnerUI": 1,
-            "UITheme2039": 1
+            "UITheme2039": 1,
+            "FoldableDevice": 1,
+            "FoldModeEnabled": 1,
+            "FoldableUI": 1,
+            "iPhoneFoldMode": 1,
+            "FoldableDisplayCapability": 1,
+            "MultiWindowFoldMode": 1,
+            "FoldableAppLayout": 1,
+            "FoldableNavigation": 1,
+            "FoldableStatusBar": 1,
+            "FoldableHomeScreen": 1
         ], isRisky: true),
 
         .init(id: .internalInstall, category: .internalFeatures, title: String(localized: "Apple Internal Install"), detail: String(localized: "Enables internal capabilities such as Metal HUD; some services may misbehave."), values: ["EqrsVvjcYDdxHBiQmGhAWw": 1], isRisky: true),
