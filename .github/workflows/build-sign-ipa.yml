@@ -21,15 +21,16 @@ jobs:
             -scheme GestaltEdit \
             -configuration Release \
             -archivePath "$RUNNER_TEMP/GestaltEdit.xcarchive" \
-            CODE_SIGN_STYLE=Manual \
-            CODE_SIGN_IDENTITY="Apple Development"
+            CODE_SIGN_STYLE=Automatic \
+            DEVELOPMENT_TEAM="${{ secrets.APPLE_TEAM_ID }}"
 
       - name: Export signed IPA
         run: |
           xcodebuild -exportArchive \
             -archivePath "$RUNNER_TEMP/GestaltEdit.xcarchive" \
             -exportPath "$RUNNER_TEMP/" \
-            -exportOptionsPlist ExportOptions.plist
+            -exportOptionsPlist ExportOptions.plist \
+            -allowProvisioningUpdates
 
       - name: Upload signed IPA
         uses: actions/upload-artifact@v4
