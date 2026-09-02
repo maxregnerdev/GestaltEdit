@@ -1,4 +1,4 @@
-name: Build & Sign IPA
+name: Build & Sign IPA (Free Apple ID)
 
 on:
   push:
@@ -11,19 +11,15 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Install dependencies
-        run: brew install ios-deploy
-
-      - name: Build IPA
+      - name: Build and sign IPA
         run: |
           xcodebuild archive \
             -project GestaltEdit.xcodeproj \
             -scheme GestaltEdit \
             -configuration Release \
             -archivePath GestaltEdit.xcarchive \
-            CODE_SIGN_IDENTITY="Apple Development" \
-            CODE_SIGNING_REQUIRED=YES \
-            DEVELOPMENT_TEAM=${{ secrets.APPLE_TEAM_ID }}
+            CODE_SIGN_STYLE=Manual \
+            CODE_SIGN_IDENTITY="Apple Development"
 
       - name: Export signed IPA
         run: |
