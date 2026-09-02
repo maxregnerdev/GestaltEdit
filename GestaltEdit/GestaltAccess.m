@@ -98,7 +98,8 @@ static BOOL GestaltWriteAll(int fd, NSData *data)
         [build isEqualToString:@"24A5380h"] || // iOS / iPadOS 27 beta 3
         [build isEqualToString:@"24A5380i"] || // iPadOS 27 beta 3 v2
         [build isEqualToString:@"24A5380l"] || // iOS / iPadOS 27 Public Beta 1 (revised beta 3, see issue #51)
-        [build isEqualToString:@"24A5390f"]    // iOS / iPadOS 27 beta 4
+        [build isEqualToString:@"24A5390f"] || // iOS / iPadOS 27 beta 4
+        [build isEqualToString:@"24A5430a"]    // iOS / iPadOS 27 beta 8
     );
 }
 
@@ -108,7 +109,7 @@ static BOOL GestaltWriteAll(int fd, NSData *data)
 {
     if (!GestaltAccess.isRunningSupportedOS) {
         if (error) *error = GestaltError(0, NSLocalizedString(
-            @"GestaltEdit currently supports only iOS and iPadOS 27 beta 1 through beta 4.", nil));
+            @"GestaltEdit currently supports only iOS and iPadOS 27 beta 1 through beta 4 and beta 8.", nil));
         return NO;
     }
 

@@ -40,6 +40,7 @@ enum GestaltTweakID: String, CaseIterable, Identifiable {
     case collisionSOS
     case alwaysOnDisplay
     case alwaysOnDisplayVibrancy
+    case maxregnerUIMode
 
     var id: String { rawValue }
 }
@@ -76,7 +77,8 @@ enum GestaltTweakCatalog {
 
         .init(id: .internalInstall, category: .internalFeatures, title: String(localized: "Apple Internal Install"), detail: String(localized: "Enables internal capabilities such as Metal HUD; some services may misbehave."), values: ["EqrsVvjcYDdxHBiQmGhAWw": 1], isRisky: true),
         .init(id: .internalStorage, category: .internalFeatures, title: String(localized: "Internal Storage View"), detail: String(localized: "Shows internal files in Storage settings; high risk on some iPads."), values: ["LBJfwOEzExRxzlAnSuI7eg": 1], isRisky: true),
-        .init(id: .securityResearchDevice, category: .internalFeatures, title: String(localized: "Security Research Device Mode"), detail: String(localized: "Marks the device as a Security Research Device."), values: ["XYlJKKkj2hztRP1NWWnhlw": 1], isRisky: true)
+        .init(id: .securityResearchDevice, category: .internalFeatures, title: String(localized: "Security Research Device Mode"), detail: String(localized: "Marks the device as a Security Research Device."), values: ["XYlJKKkj2hztRP1NWWnhlw": 1], isRisky: true),
+        .init(id: .maxregnerUIMode, category: .display, title: String(localized: "Maxregner UI Mode (2039)"), detail: String(localized: "Applies the 2039 UI theme for iOS 27 beta 8."), values: ["UIMode2039": 1, "MaxregnerUIEnabled": 1])
     ]
 
     static func definition(for id: GestaltTweakID) -> GestaltTweakDefinition? {
