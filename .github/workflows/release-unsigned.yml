@@ -49,3 +49,4 @@ jobs:
           generate_release_notes: true
           fail_on_unmatched_files: true
           files: ${{ runner.temp }}/GestaltEdit-${{ github.ref_name }}-unsigned.ipa
+
