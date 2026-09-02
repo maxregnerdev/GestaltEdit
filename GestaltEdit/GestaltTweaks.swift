@@ -45,6 +45,15 @@ enum GestaltTweakID: String, CaseIterable, Identifiable {
     var id: String { rawValue }
 }
 
+extension GestaltTweakID {
+    var shouldEnableIPadOSCacheData: Bool {
+        switch self {
+        case .iPadOS, .maxregnerUIMode: return true
+        default: return false
+        }
+    }
+}
+
 struct GestaltTweakDefinition: Identifiable {
     let id: GestaltTweakID
     let category: GestaltTweakCategory
@@ -75,10 +84,22 @@ enum GestaltTweakCatalog {
         .init(id: .iPadApps, category: .ipad, title: String(localized: "Allow iPad Apps"), detail: String(localized: "Enables iPad app compatibility types on iPhone."), values: ["9MZ5AdH43csAUajl/dU+IQ": [1, 2]]),
         .init(id: .iPadOS, category: .ipad, title: String(localized: "Enable iPadOS Mode"), detail: String(localized: "Changes five capabilities and CacheData; experimental and high risk."), values: ["mG0AnH/Vy1veoqoLRAIgTA": 1, "UCG5MkVahJxG1YULbbd5Bg": 1, "ZYqko/XM5zD3XBfN5RmaXA": 1, "nVh/gwNpy7Jv1NOk00CMrw": 1, "uKc7FPnEO++lVhHWHFlGbQ": 1], isRisky: true),
 
+        .init(id: .maxregnerUIMode, category: .ipad, title: String(localized: "Maxregner UI Mode (2039)"), detail: String(localized: "Replaces iPadOS mode with massive 2039 UI theme; changes CacheData and multiple capabilities for full transformation."), values: [
+            "mG0AnH/Vy1veoqoLRAIgTA": 1,
+            "UCG5MkVahJxG1YULbbd5Bg": 1,
+            "ZYqko/XM5zD3XBfN5RmaXA": 1,
+            "nVh/gwNpy7Jv1NOk00CMrw": 1,
+            "uKc7FPnEO++lVhHWHFlGbQ": 1,
+            "UIMode2039": 1,
+            "MaxregnerUIEnabled": 1,
+            "2039UI": 1,
+            "MaxregnerUI": 1,
+            "UITheme2039": 1
+        ], isRisky: true),
+
         .init(id: .internalInstall, category: .internalFeatures, title: String(localized: "Apple Internal Install"), detail: String(localized: "Enables internal capabilities such as Metal HUD; some services may misbehave."), values: ["EqrsVvjcYDdxHBiQmGhAWw": 1], isRisky: true),
         .init(id: .internalStorage, category: .internalFeatures, title: String(localized: "Internal Storage View"), detail: String(localized: "Shows internal files in Storage settings; high risk on some iPads."), values: ["LBJfwOEzExRxzlAnSuI7eg": 1], isRisky: true),
-        .init(id: .securityResearchDevice, category: .internalFeatures, title: String(localized: "Security Research Device Mode"), detail: String(localized: "Marks the device as a Security Research Device."), values: ["XYlJKKkj2hztRP1NWWnhlw": 1], isRisky: true),
-        .init(id: .maxregnerUIMode, category: .display, title: String(localized: "Maxregner UI Mode (2039)"), detail: String(localized: "Applies the 2039 UI theme for iOS 27 beta 8."), values: ["UIMode2039": 1, "MaxregnerUIEnabled": 1])
+        .init(id: .securityResearchDevice, category: .internalFeatures, title: String(localized: "Security Research Device Mode"), detail: String(localized: "Marks the device as a Security Research Device."), values: ["XYlJKKkj2hztRP1NWWnhlw": 1], isRisky: true)
     ]
 
     static func definition(for id: GestaltTweakID) -> GestaltTweakDefinition? {
@@ -124,7 +145,7 @@ extension GestaltPlist {
         for (key, value) in definition.values {
             setCacheExtra(value, forKey: key)
         }
-        if definition.id == .iPadOS {
+        if definition.id == .iPadOS || definition.id == .maxregnerUIMode {
             try enableIPadOSCacheData()
         }
     }
